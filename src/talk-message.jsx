@@ -54,15 +54,15 @@ class TalkMessage extends React.Component {
     return(
       <div className={ topWrapper }>
         <div className={ contentWrapper }>
-          <Linkify className="talk-message-content-span" options={ linkifyOptions } >
-            { this.state.message }
+          <Linkify className="talk-message-content-span" options={linkifyOptions}>
+            <span className={authorMetadata}>
+              {this.props.author}
+              <span className="talk-message-metadata-author-separator">: </span>
+            </span>
+            {this.state.message}
           </Linkify>
         </div>
         <div className="talk-message-metadata">
-          <span className={ authorMetadata} >
-            { this.props.author }
-            <span className="talk-message-metadata-author-separator"> • </span>
-          </span>
           <span className="talk-message-metadata-timestamp">
             { RelativeDate(this.props.timestamp) }
           </span>
