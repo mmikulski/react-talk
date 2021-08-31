@@ -22,4 +22,29 @@
     }
   }
 
+  &-emojis-panel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+    background: white;
+    border: 1px solid;
+    -webkit-box-shadow: 0 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    box-shadow: 0 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+    margin: 1rem;
+
+    span,
+    &-close {
+      cursor: pointer;
+    }
+
+    span {
+      margin: .5rem
+    }
+
+    &-close {
+      background: transparent;
+      border: 0;
+    }
+  }
 }
