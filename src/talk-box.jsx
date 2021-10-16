@@ -5,17 +5,16 @@ import PropTypes from "prop-types";
 import TalkMessage from "./talk-message.jsx";
 import TalkInput from "./talk-input.jsx";
 import classNames from "classnames";
-import { animateScroll as scroll } from "react-scroll";
+import {animateScroll as scroll} from "react-scroll";
 
-const similarity = require("similarity");
-const htmlId = require("react-html-id");
-const isBlank = require("is-blank");
+import similarity from "similarity";
+
+import htmlId from "react-html-id";
 
 class TalkBox extends React.Component {
 
   static defaultProps = {
-    // If connected is not used then we assume always connected
-    connected: true
+    connected: true,
   }
 
   static propTypes = {
@@ -69,23 +68,29 @@ class TalkBox extends React.Component {
     this.scrollToBottom();
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.messages.length !== this.props.messages.length) {
+      this.scrollToBottom();
+    }
+  }
+
   render() {
     const connectStatus = classNames({
       "talk-box-status": true,
-      "connected": this.props.connected
+      "connected": this.props.connected,
     });
-    return(
-      <div className="talk-box-wrapper custom" style={ this.props.style }>
+    return (
+      <div className="talk-box-wrapper custom" style={this.props.style}>
         <div className="talk-box-header">
-          <span className={ connectStatus }></span>
-          <span className="talk-box-topic">{ this.state.topic }</span>
+          <span className={connectStatus} />
+          <span className="talk-box-topic">{this.state.topic}</span>
         </div>
-        <div className="talk-box-body" id={ this.talkBoxId }>
-          {this.props.messages.map((item, i) => <TalkMessage key={i} timestamp={ parseInt(item.timestamp) }
-            message={ item.message } author={ item.author } authorId={ item.authorId }
-            selfPosted={ similarity(item.authorId, this.props.currentUserId) === 1 } />)}
+        <div className="talk-box-body" id={this.talkBoxId}>
+          {this.props.messages.map((item, i) => <TalkMessage key={i} timestamp={parseInt(item.timestamp)}
+            message={item.message} author={item.author} authorId={item.authorId}
+            selfPosted={similarity(item.authorId, this.props.currentUserId) === 1}/>)}
         </div>
-        <TalkInput onSendMessage={ this.onSendMessage } disabled={ !this.props.connected }/>
+        <TalkInput onSendMessage={this.onSendMessage} disabled={!this.props.connected}/>
       </div>
     );
   }

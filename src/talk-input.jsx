@@ -55,7 +55,7 @@ class TalkInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.disabled != nextProps.disabled) {
+    if (this.props.disabled !== nextProps.disabled) {
       this.setState({disabled: nextProps.disabled});
     }
   }
